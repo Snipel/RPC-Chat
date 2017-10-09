@@ -11,8 +11,14 @@ public class Server implements IServer {
 
 	@Override
 	public void broadcast(String msg, IClient client) {
+		
 		for (IClient iClient : clients) {
-			iClient.empfangen(client.gibName() + "schreibt: " + msg);
+			// Über Leiche gehen und die dann "beerdigen"
+			try {
+				iClient.empfangen(client.gibName() + " schreibt: " + msg);
+			} catch (Exception e) {
+				this.abmelden(iClient);
+			}
 		}
 	}
 

@@ -36,7 +36,7 @@ public class ServerSideClientProxy implements IClient {
 		}
 	}
 
-	private void evaluateErrorCode() throws IOException {
+	private Object evaluateErrorCode() throws IOException {
 		switch (input.readLine().substring(0, 3)) {
 		case "500":
 			String line = input.readLine();
@@ -45,7 +45,12 @@ public class ServerSideClientProxy implements IClient {
 
 		case "200":
 			System.out.println(input.readLine());
-			return;
+			return null;
+			
+		case "400":
+			String s = input.readLine();
+			System.out.println(input.readLine());
+			return s;
 
 		default:
 			System.out.println(input.readLine());
@@ -79,10 +84,8 @@ public class ServerSideClientProxy implements IClient {
 		output.flush();
 
 		try {
-
-			evaluateErrorCode();
 			
-			return input.readLine();
+			return (String) evaluateErrorCode();
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);

@@ -45,7 +45,7 @@ public class ClientProxy implements IServer {
 
 		try {
 
-			System.out.println(input.readLine());
+			input.readLine();
 
 			output.println(msg);
 			output.flush();
@@ -64,11 +64,11 @@ public class ClientProxy implements IServer {
 		output.flush();
 
 		try {
-			System.out.println(input.readLine());
+			input.readLine();
 			output.println("172.30.30.119");
 			output.flush();
 			
-			System.out.println(input.readLine());
+			input.readLine();
 			output.println(rpc.socket.getLocalPort());
 			output.flush();
 
@@ -103,7 +103,7 @@ public class ClientProxy implements IServer {
 			throw new RuntimeException(line);
 
 		case "200":
-			System.out.println(input.readLine());
+			input.readLine();
 			return;
 
 		default:

@@ -117,6 +117,7 @@ public class ServerProxy implements Runnable, IProxy {
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				running = false;
 			}
 		}
 	}

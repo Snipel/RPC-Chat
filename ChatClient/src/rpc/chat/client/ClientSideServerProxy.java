@@ -22,7 +22,7 @@ public class ClientSideServerProxy implements Runnable, IProxy {
 
 		try {
 
-			out.println("200 - Success");
+			out.println("400 - Success");
 			out.println(client.gibName());
 
 		} catch (Exception e) {
@@ -77,6 +77,7 @@ public class ClientSideServerProxy implements Runnable, IProxy {
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				running = false;
 			}
 		}
 	}

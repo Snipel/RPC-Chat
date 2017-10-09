@@ -1,6 +1,7 @@
 package rpc.chat.client;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 
@@ -25,6 +26,13 @@ public class Main {
 		ClientProxy clientP = new ClientProxy("localhost", 6666, rpc);
 		clientP.anmelden(client);
 		clientP.broadcast("testMsg", client);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String msg;
+		
+		while (!((msg = br.readLine()).equals("quit"))) {
+			clientP.broadcast(msg, client);
+		}
+		
 		clientP.abmelden(client);
 		
 	}
