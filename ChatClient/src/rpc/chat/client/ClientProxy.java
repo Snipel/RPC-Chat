@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 
 import rpc.chat.interfaces.IClient;
@@ -13,8 +14,11 @@ public class ClientProxy implements IServer {
 
 	BufferedReader input;
 	PrintWriter output;
+	
+	RPCRuntime rpc;
 
-	public ClientProxy(String host, int port) throws Exception {
+	public ClientProxy(String host, int port, RPCRuntime rpc) throws Exception {
+		this.rpc = rpc;
 		socket = new Socket(host, port);
 
 		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -60,10 +64,12 @@ public class ClientProxy implements IServer {
 		output.flush();
 
 		try {
-
 			System.out.println(input.readLine());
-
-			output.println(client.gibName());
+			output.println("172.30.30.119");
+			output.flush();
+			
+			System.out.println(input.readLine());
+			output.println(rpc.socket.getLocalPort());
 			output.flush();
 
 			evaluateErrorCode();

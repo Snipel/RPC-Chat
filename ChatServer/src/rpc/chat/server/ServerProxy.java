@@ -13,7 +13,7 @@ public class ServerProxy implements Runnable, IProxy {
 
 	boolean running = true;
 
-	LocalClient lc;
+	ServerSideClientProxy lc;
 
 	public ServerProxy(BufferedReader in, PrintWriter out, Object server) {
 		this.server = (Server) server;
@@ -42,12 +42,18 @@ public class ServerProxy implements Runnable, IProxy {
 	}
 
 	private void anmelden() throws IOException {
-		out.println("Gib mir deinen Namen!");
+		out.println("Gib mir deine IP-Adresse!");
 		out.flush();
-		String name = in.readLine();
-		lc = new LocalClient(name);
-
+		String IP = in.readLine();
+		System.out.println("IP: " + IP);
+		
+		out.println("Gib mir deinen Port!");
+		out.flush();
+		int port = Integer.parseInt(in.readLine());
+		System.out.println("Port: " + port);
+		
 		try {
+			lc = new ServerSideClientProxy(IP, port);
 			
 			server.anmelden(lc);
 			out.println("200 - Success");
